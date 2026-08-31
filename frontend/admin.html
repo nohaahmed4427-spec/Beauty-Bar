@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Beauty Bar | Owner Dashboard</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #fcf7f5;
+            color: #5b3b4b;
+            min-height: 100vh;
+        }
+
+
+        .admin-header {
+            padding: 25px 7%;
+
+            background: #4e3442;
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+        }
+
+
+        .admin-logo {
+            font-size: 22px;
+
+            font-weight: bold;
+
+            letter-spacing: 3px;
+        }
+
+
+        .admin-label {
+            font-size: 12px;
+
+            color: #e6c9d7;
+
+            letter-spacing: 2px;
+        }
+
+
+        .dashboard {
+            max-width: 1000px;
+
+            margin: 60px auto;
+
+            padding: 0 25px;
+        }
+
+
+        .title {
+            text-align: center;
+
+            margin-bottom: 40px;
+        }
+
+
+        .title h1 {
+            color: #704457;
+
+            font-size: 42px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .title p {
+            color: #856b77;
+        }
+
+
+        .form-card {
+            max-width: 700px;
+
+            margin: auto;
+
+            padding: 35px;
+
+            background: white;
+
+            border-radius: 25px;
+
+            box-shadow:
+                0 10px 30px
+                rgba(90, 55, 75, 0.10);
+        }
+
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+
+        .form-group label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            color: #704457;
+        }
+
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+
+            width: 100%;
+
+            padding: 13px 15px;
+
+            border: 1px solid #e6d4dd;
+
+            border-radius: 12px;
+
+            outline: none;
+
+            font-family: Arial, sans-serif;
+
+            font-size: 14px;
+
+            background: #fffafb;
+        }
+
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+
+            border-color: #b86f90;
+        }
+
+
+        .form-group textarea {
+            min-height: 120px;
+
+            resize: vertical;
+        }
+
+
+        .image-preview {
+
+            display: none;
+
+            width: 180px;
+
+            height: 180px;
+
+            object-fit: cover;
+
+            border-radius: 18px;
+
+            margin-top: 15px;
+
+            border: 2px solid #ead0dc;
+        }
+
+
+        .add-button {
+
+            width: 100%;
+
+            border: none;
+
+            padding: 14px;
+
+            border-radius: 25px;
+
+            background: #a65d7e;
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+
+        .add-button:hover {
+
+            background: #914d6d;
+
+            transform: translateY(-2px);
+        }
+
+
+        .message {
+
+            margin-top: 18px;
+
+            text-align: center;
+
+            font-size: 14px;
+
+            font-weight: bold;
+        }
+
+
+        .products-title {
+
+            text-align: center;
+
+            color: #704457;
+
+            margin: 60px 0 25px;
+
+            font-size: 30px;
+        }
+
+
+        #products {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+        }
+
+
+        .product-card {
+
+            overflow: hidden;
+
+            background: white;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 8px 25px
+                rgba(90, 55, 75, 0.08);
+        }
+
+
+        .product-image {
+
+            width: 100%;
+
+            height: 220px;
+
+            object-fit: cover;
+
+            display: block;
+
+            background: #f5e9ee;
+        }
+
+
+        .product-content {
+
+            padding: 22px;
+        }
+
+
+        .product-card h3 {
+
+            color: #704457;
+
+            margin-bottom: 8px;
+        }
+
+
+        .product-card .price {
+
+            color: #a65d7e;
+
+            font-weight: bold;
+
+            margin-bottom: 8px;
+        }
+
+
+        .product-card .category {
+
+            font-size: 12px;
+
+            color: #8b7180;
+
+            margin-bottom: 8px;
+        }
+
+
+        .product-card p {
+
+            font-size: 13px;
+
+            color: #806b75;
+        }
+
+
+        @media (max-width: 750px) {
+
+            #products {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .admin-header {
+
+                flex-direction: column;
+
+                gap: 8px;
+
+                text-align: center;
+            }
+
+
+            .form-card {
+
+                padding: 25px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <header class="admin-header">
+
+        <div class="admin-logo">
+            BEAUTY BAR
+        </div>
+
+        <div class="admin-label">
+            OWNER DASHBOARD
+        </div>
+
+    </header>
+
+
+
+    <main class="dashboard">
+
+
+        <div class="title">
+
+            <h1>
+                Add Product
+            </h1>
+
+            <p>
+                Manage your Beauty Bar products
+            </p>
+
+        </div>
+
+
+
+        <form
+            class="form-card"
+            id="productForm"
+        >
+
+
+            <div class="form-group">
+
+                <label for="name">
+                    Product Name
+                </label>
+
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="Enter product name"
+                    required
+                >
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label for="price">
+                    Price
+                </label>
+
+                <input
+                    type="number"
+                    id="price"
+                    placeholder="Enter price"
+                    min="0"
+                    step="0.01"
+                    required
+                >
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label for="category">
+                    Skin Care Category
+                </label>
+
+                <select
+                    id="category"
+                    required
+                >
+
+                    <option value="">
+                        Select a category
+                    </option>
+
+                    <option value="Facial Care">
+                        Facial Care
+                    </option>
+
+                    <option value="Acne Care">
+                        Acne Care
+                    </option>
+
+                    <option value="Skin Hydration">
+                        Skin Hydration
+                    </option>
+
+                    <option value="Skin Cleansing">
+                        Skin Cleansing
+                    </option>
+
+                    <option value="Sun Protection">
+                        Sun Protection
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label for="description">
+                    Description
+                </label>
+
+                <textarea
+                    id="description"
+                    placeholder="Enter product description"
+                ></textarea>
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label for="image">
+                    Product Image
+                </label>
+
+                <input
+                    type="file"
+                    id="image"
+                    accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp"
+                >
+
+                <img
+                    id="imagePreview"
+                    class="image-preview"
+                    alt="Product preview"
+                >
+
+            </div>
+
+
+
+            <button
+                type="submit"
+                class="add-button"
+            >
+                Add Product
+            </button>
+
+
+
+            <div
+                id="message"
+                class="message"
+            ></div>
+
+        </form>
+
+
+
+        <h2 class="products-title">
+            Current Products
+        </h2>
+
+
+        <div id="products"></div>
+
+
+    </main>
+
+
+
+    <script>
+
+        const productForm =
+            document.getElementById("productForm");
+
+        const message =
+            document.getElementById("message");
+
+        const productsContainer =
+            document.getElementById("products");
+
+        const imageInput =
+            document.getElementById("image");
+
+        const imagePreview =
+            document.getElementById("imagePreview");
+
+
+
+        /* Image Preview */
+
+        imageInput.addEventListener(
+            "change",
+            function () {
+
+                const file =
+                    imageInput.files[0];
+
+                if (!file) {
+
+                    imagePreview.style.display =
+                        "none";
+
+                    imagePreview.src = "";
+
+                    return;
+                }
+
+                imagePreview.src =
+                    URL.createObjectURL(file);
+
+                imagePreview.style.display =
+                    "block";
+            }
+        );
+
+
+
+        /* Load Products */
+
+        async function loadProducts() {
+
+            try {
+
+                const response =
+                    await fetch(
+                        "http://127.0.0.1:5000/api/products"
+                    );
+
+                const products =
+                    await response.json();
+
+                productsContainer.innerHTML =
+                    "";
+
+
+                if (products.length === 0) {
+
+                    productsContainer.innerHTML = `
+                        <p style="
+                            text-align:center;
+                            grid-column:1/-1;
+                            color:#806b75;
+                        ">
+                            No products yet.
+                        </p>
+                    `;
+
+                    return;
+                }
+
+
+                products.forEach(
+                    function (product) {
+
+                        const card =
+                            document.createElement("div");
+
+                        card.className =
+                            "product-card";
+
+
+                        const imageHTML =
+                            product.image
+                            ? `
+                                <img
+                                    src="${product.image}"
+                                    class="product-image"
+                                    alt="${product.name}"
+                                >
+                            `
+                            : `
+                                <div
+                                    class="product-image"
+                                    style="
+                                        display:flex;
+                                        align-items:center;
+                                        justify-content:center;
+                                        color:#9c7d8c;
+                                    "
+                                >
+                                    No Image
+                                </div>
+                            `;
+
+
+                        card.innerHTML = `
+
+                            ${imageHTML}
+
+                            <div class="product-content">
+
+                                <h3>
+                                    ${product.name}
+                                </h3>
+
+                                <div class="price">
+                                    ${product.price} EGP
+                                </div>
+
+                                <div class="category">
+                                    ${product.category}
+                                </div>
+
+                                <p>
+                                    ${product.description || ""}
+                                </p>
+
+                            </div>
+
+                        `;
+
+
+                        productsContainer.appendChild(
+                            card
+                        );
+
+                    }
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Error loading products:",
+                    error
+                );
+
+            }
+
+        }
+
+
+
+        /* Add Product */
+
+        productForm.addEventListener(
+            "submit",
+            async function (event) {
+
+                event.preventDefault();
+
+
+                const file =
+                    imageInput.files[0];
+
+
+                const formData =
+                    new FormData();
+
+
+                formData.append(
+                    "name",
+                    document
+                        .getElementById("name")
+                        .value
+                );
+
+
+                formData.append(
+                    "price",
+                    document
+                        .getElementById("price")
+                        .value
+                );
+
+
+                formData.append(
+                    "category",
+                    document
+                        .getElementById("category")
+                        .value
+                );
+
+
+                formData.append(
+                    "description",
+                    document
+                        .getElementById("description")
+                        .value
+                );
+
+
+                if (file) {
+
+                    formData.append(
+                        "image",
+                        file
+                    );
+
+                }
+
+
+                try {
+
+                    const response =
+                        await fetch(
+                            "http://127.0.0.1:5000/api/products",
+                            {
+                                method: "POST",
+
+                                body: formData
+                            }
+                        );
+
+
+                    const result =
+                        await response.json();
+
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            result.error ||
+                            "Failed to add product"
+                        );
+
+                    }
+
+
+                    message.textContent =
+                        "Product added successfully!";
+
+                    message.style.color =
+                        "#6b9875";
+
+
+                    productForm.reset();
+
+                    imagePreview.src = "";
+
+                    imagePreview.style.display =
+                        "none";
+
+
+                    loadProducts();
+
+                }
+
+                catch (error) {
+
+                    console.error(error);
+
+                    message.textContent =
+                        error.message;
+
+                    message.style.color =
+                        "#b85c70";
+
+                }
+
+            }
+        );
+
+
+
+        loadProducts();
+
+    </script>
+
+
+</body>
+
+</html>
